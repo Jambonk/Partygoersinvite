@@ -33,21 +33,74 @@
             padding: 15px 30px;
             margin-top: 40px;
             font-size: 1.2em;
-            color: #000;
+            color: #fff;
             background-color: #f00;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border: 2px solid #ff0;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .btn-enter:hover {
-            background-color: #f00;
+            background-color: #ff0;
+            color: #000;
+            transform: scale(1.1);
+        }
+        .confetti {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        #warning-message {
+            display: none;
+            font-size: 2em;
+            color: #ff0;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px #000;
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0;}
+            to { opacity: 1;}
         }
     </style>
-    </head>
-    <body>
+</head>
+<body>
     <h1>WELCOME TO OUR PARTY!</h1>
     <p>Partygoers đang đợi bạn...Hãy tham gia để tận hưởng niềm vui mãi mãi...</p>
     <p class="invitation">"Không còn lối thoát, chỉ có con đường dẫn vào bữa tiệc. Bạn sẽ đến chứ?"</p>
-    <a href="#" class="btn-enter">Bước Vào Bữa Tiệc</a>
-    </body>
+    <a href="#" class="btn-enter" onclick="enterParty()">Bước Vào Bữa Tiệc</a>
+    <div id="warning-message">"Lại đây nào... sẽ không đau đâu..."</div>
+    <script>
+        const colors = ['red', 'yellow', 'blue', 'green', 'purple', 'orange'];
+        
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; 
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(confetti);
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+        setInterval(createConfetti, 200);
+
+        function enterParty() {
+            document.body.style.backgroundImage = "url('Partygoerblood.webp')";
+            document.getElementById('warning-message').style.display = 'block';
+        }
+    </script>
+</body>
 </html>
